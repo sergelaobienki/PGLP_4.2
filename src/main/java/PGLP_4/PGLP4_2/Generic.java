@@ -1,14 +1,11 @@
 package PGLP_4.PGLP4_2;
 
-public interface GeneriqueCommand {
-	public void Quit() {
+public class Generic {
+	public void quit() {
 		System.out.println("execution de la commande Quit");
 	}
 	
-	public void Undo() {
+	public void undo() {
 		System.out.println("execution de la commande Undo");
 	}
-
-	void apply();
-
 }
