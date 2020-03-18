@@ -1,16 +1,16 @@
 package PGLP_4.PGLP4_2;
 
-public abstract class Undo implements GeneriqueCommand {
+public  class Undo implements GeneriqueCommand {
 
-	private final Generic undo; 
+	private final Generic Undo; 
 	
 	public Undo(Generic undo) {
-		this.undo=undo;
+		this.Undo=undo;
 		
 	}
 	public void apply() {
 		// TODO Auto-generated method stub
-		undo.undo();;
+		Undo.undo();;
 		
 	}
 

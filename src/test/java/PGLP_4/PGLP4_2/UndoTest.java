@@ -11,8 +11,8 @@ public class UndoTest {
 		GeneriqueCommand undoprog = new Undo(genericProg);
 		
 		Interpreteur commandGenrric = new Interpreteur();
-		commandGenrric.register("Undo", undoprog);
+		commandGenrric.register("undo", undoprog);
 		
-		commandGenrric.execute("Undo");
+		commandGenrric.execute("undo");
 	}
 }
