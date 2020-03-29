@@ -10,10 +10,10 @@ public class MoteurRPNTest {
 	public void test() {
 		MoteurRPN moteur = new MoteurRPN();
 		moteur.initMoteurRPN();
-		moteur.enregistrer(2);
-		moteur.enregistrer(2);
+		moteur.enregistrer(5);
+		moteur.enregistrer(5);
 		moteur.apply("+");
-		assertTrue(moteur.depiler()==5);
+		assertTrue(moteur.depiler()==10);
 		moteur.enregistrer(5);
 		moteur.enregistrer(5);
 		moteur.apply("-");
@@ -21,11 +21,11 @@ public class MoteurRPNTest {
 		moteur.enregistrer(5);
 		moteur.enregistrer(5);
 		moteur.apply("*");
-		assertTrue(moteur.depiler()==15);
+		assertTrue(moteur.depiler()==25);
 		moteur.enregistrer(5);
 		moteur.enregistrer(5);
 		moteur.apply("/");
-		assertTrue(moteur.depiler()==3);
+		assertTrue(moteur.depiler()==1);
 		
 	}
 
