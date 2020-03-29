@@ -1,46 +1,53 @@
 package PGLP_4.PGLP4_2;
 
+
+
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class MoteurRPN {
 	
-	private static final GeneriqueCommand CommandQuit = null;
-
-	private static final GeneriqueCommand CommandUndo = null;
-
 	/**
 	 * La Pile qui va stocke les operandes
 	 */
-    private Stack <Double> pile =new Stack<>();
+    private Stack <Double> pile =new Stack<Double>();
+    public Stack <Double> history =new Stack<Double>();
 	
     /**
      * les commandes specifiques pour les operations
      */
 	private Specific specificProg=new Specific();
-	private SpecificCommand calculplus = new(specificProg,this);
-	private SpecificCommands calculmoins = new Soustraction(specificProg,this);
+	private SpecificCommand calculplus = new Plus(specificProg,this);
+	private SpecificCommand calculmoins = new Moins(specificProg,this);
+	private SpecificCommand calculmult = new Mult(specificProg,this);
+	private SpecificCommand calculdiv = new Div(specificProg,this);
 	
 	/**
 	 * les commandes generiques
 	 */
 	private Generic genericProg= new Generic();
 	private GeneriqueCommand commandquit= new Quit(genericProg);
-	private GeneriqueCommand commandundo= new Undo(genericProg);
+	private GeneriqueCommand commandundo= new Undo(genericProg,this.history, this);
 	
+	/**
+	 * l'interpreteur de commande
+	 */
 	private Interpreteur interpre = new Interpreteur();
 	
 	
 	/**
 	 * Initialisation de l'interpretateur
-	 * @param CalculSoustraction 
-	 * @param CalculAddition 
 	 */
-	public void initMoteurRpn(GeneriqueCommand CalculSoustraction, GeneriqueCommand CalculAddition) {
-		interpre.register("+", CalculAddition);
-		interpre.register("-", CalculSoustraction);
-		interpre.register("Quit", CommandQuit);
-		interpre.register("Undo", CommandUndo);
+	public void initMoteurRPN() {
+		
+		interpre.register("+", calculplus);
+		interpre.register("-", calculmoins);
+		interpre.register("*", calculmult);
+		interpre.register("/", calculdiv);
+		
+		interpre.register("quit", commandquit);
+		interpre.register("undo", commandundo);
+
 	}
 	
     
@@ -60,11 +67,11 @@ public class MoteurRPN {
     public double depiler(){
     	
     		if(this.pile.isEmpty()) {
-    			System.out.println("Ajoutez une operande de plus ..");
    	    		throw new EmptyStackException() ;
     		}
     		else
     		{
+    			this.history.push(pile.peek());
     			return pile.pop();
     		}
 		
@@ -76,11 +83,7 @@ public class MoteurRPN {
      */
     public void apply  (String commande)
      {
-    	try {
         	interpre.execute(commande);
-    	}catch (IllegalStateException e) {
-			// TODO: handle exception
-		}
      }
     
     /**

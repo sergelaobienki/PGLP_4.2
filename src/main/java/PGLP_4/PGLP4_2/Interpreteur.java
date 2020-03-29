@@ -3,17 +3,24 @@ package PGLP_4.PGLP4_2;
 import java.util.HashMap;
 
 public class Interpreteur {
- private final HashMap<String, Command> commandMap = new HashMap<String, Command>();
+	
+	private final HashMap<String, Command> commandMap = new HashMap<String, Command>();
 	 
-	 public void register(String commandName, GeneriqueCommand quitprog) {
-	        commandMap.put(commandName, (Command) quitprog);
+	public void register(String commandName, Command command) {
+	        commandMap.put(commandName, command);
 	    }
 	    
-	    public void execute(String commandName) {
+	public void execute(String commandName) {
 	        Command command = commandMap.get(commandName);
-	        if (command == null) {
-	            throw new IllegalStateException("no command registered for " + commandName);
-	        }
+	        try {
+	        	if (command == null) {
+		        	System.out.println("erreur de commande ...");
+		            throw new IllegalStateException("no command registered for " + commandName);
+		        }
 	        command.apply();
-	    }
-}
+	        
+	        } catch (IllegalStateException e) {
+	        	
+	        }
+	}
+	}
